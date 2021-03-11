@@ -1,0 +1,25 @@
+services:
+  redis:
+    image: redis:latest
+    command: ["redis-server", "--bind", "redis", "--port", "6379"]
+  db:
+    image: postgres
+    networks:
+      - webnet
+    environment:
+      POSTGRES_PASSWORD: 12345
+      POSTGRES_USER: postgres
+      POSTGRES_DB: bmgbackend_development
+  web:
+    build: .
+    volumes:
+      - ".:/bmg/src"
+    ports:
+      - "3000:3000"
+    networks:
+      - webnet
+    environment:
+      DB_HOST: db
+      REDIS_HOST: redis
+networks:
+  webnet:
