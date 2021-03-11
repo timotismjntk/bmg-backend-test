@@ -63,17 +63,17 @@ module.exports = {
         let { username, password, name, email } = results
         const check = await User.findByPk(id)
         const checkUserName = await User.findOne({ where: { username: username } })
+        const checkEmail =  await User.findOne({ where: { email: email } })
         const salt = await bcrypt.genSalt()
         password = await bcrypt.hash(password, salt)
         if (check) {
-           if (username && name && email && password) {
-              if (checkUserName) {
-                  if (username === check.dataValues.username) {
-                    return response(res, 'Username is same with your old username', {}, 400, false)
-                  } else {
-                    return response(res, 'Username is used, choose another username', {}, 400, false)
-                  }
-              } else {
+          if (checkEmail.dataValues.email !== check.dataValues.email) {
+            return response(res, 'Email is used, choose another email', {}, 400, false)
+          } else {
+            if (checkUserName.dataValues.username !== check.dataValues.username) {
+              return response(res, 'Username is used, choose another username', {}, 400, false)
+            } else {
+              if (username && name && email && password) {
                 const data = {
                   username,
                   name,
@@ -81,25 +81,26 @@ module.exports = {
                   password,
                 }
                 await check.update(data)
-                return response(res, 'User updated successfully', { results })
-              }
-          } else if (username || name || email) {
-            const data = {
-              username,
-              name,
-              email
+                return response(res, 'User updated successfully', {})
+             } else if (username || name || email) {
+               const data = {
+                 username,
+                 name,
+                 email
+               }
+                await check.update(data)
+                return response(res, 'User updated successfully', {})
+             } else if (password) {
+                 const data = {
+                   username,
+                   name,
+                   email,
+                   password
+                 }
+                 await check.update(data)
+                 return response(res, 'User updated successfully', {})
+             }
             }
-            await check.update(data)
-            return response(res, 'User updated successfully', { data })
-          } else if (password) {
-              const data = {
-                username,
-                name,
-                email,
-                password
-              }
-              await check.update(data)
-              return response(res, 'User updated successfully', { results })
           }
           return response(res, 'Atleast fill one column', {}, 400, false)
         }
