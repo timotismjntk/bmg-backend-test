@@ -4,7 +4,7 @@ Follow this steps.
 
 1. Install Redis on your system.
 2. Install [postgreSQL](https://www.postgresql.org/) on your system
-3. Clone this boilerplate
+3. Clone this repository
 
 ```bash
 $ git clone  https://github.com/timotismjntk/bmg-backend-test.git
@@ -33,7 +33,7 @@ you can type
 $ nodemon index.js
 ```
 Now you can test API on server http://localhost:8080/
-# -----------------------------------------------------------------------------------------
+# -------------------------------------------------------------------------
 
 # Docker
 Install [Docker](https://www.docker.com/) on your system.
