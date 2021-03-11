@@ -20,19 +20,22 @@ $ yarn install
 5. create postgreSQL databases
 ```bash
 $ yarn sequelize db:create
+```
 
 6. create migration on databases
 ```bash
 $ yarn sequelize db:migrate
+```
 
-4. If U just want test it without docker
+7. If U just want test it without docker
 you can type
 ```bash
 $ nodemon index.js
 ```
-#---------------------------------------------------------------------------------
+Now you can test API on server http://localhost:8080/
+# -----------------------------------------------------------------------------------------
 
-#Docker
+# Docker
 Install [Docker](https://www.docker.com/) on your system.
 
 * [Install instructions](https://docs.docker.com/installation/mac/) for Mac OS X
@@ -188,7 +191,7 @@ Response :
 ```json 
 {
     "status" : "string",
-    "message" : "string"
+    "message" : "string",
     "data": [
       {
           "username": "string",
@@ -216,7 +219,7 @@ Response :
 ```json 
 {
     "status" : "string",
-    "message" : "string"
+    "message" : "string",
     "data": {
             "version": "string",
             "id": "string",
